@@ -16,7 +16,7 @@
             compatible = "zmk,behavior-macro";
             label = "To1_macro";
             #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(128,100,50) &to 1>;
+            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(128,100,50) &to 4>;
         };
 
         To0_macro: To0_macro {
@@ -37,33 +37,46 @@
         };
     };
 
+    behaviors {
+        ht_kyd: ht_kyd {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HT_KYD";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         layer_0 {
             bindings = <
-&lt 3 Q  &kp W  &kp E     &kp R  &kp T        &kp Y      &kp U            &kp I      &kp O    &kp P
-&kp A    &kp S  &kp D     &kp F  &kp G        &kp H      &kp J            &kp K      &kp L    &kp ENTER
-&kp Z    &kp X  &kp C     &kp V  &kp B        &kp N      &kp M            &kp COMMA  &kp DOT  &kp FSLH
-                &mkp MB1  &mkp MB2  &lt 1 ESC    &kp SPACE  &lt 2 BACKSPACE &kp DEL
+&kp Q  &kp W            &kp E               &kp R               &kp T        &kp Y        &kp U                 &kp I                &kp O            &kp P
+&kp A  &ht_kyd LCTRL S  &ht_kyd LEFT_ALT D  &ht_kyd LEFT_WIN F  &kp G        &kp H        &ht_kyd RIGHT_WIN J   &ht_kyd RIGHT_ALT K  &ht_kyd RCTRL L  &ht_kyd SEMICOLON BACKSPACE
+&kp Z  &kp X            &kp C               &kp V               &kp B        &kp N        &kp M                 &kp COMMA            &kp DOT          &ht_kyd SQT SLASH
+                        &mkp MB1            &mkp MB2            &lt 2 TAB    &lt 1 ENTER  &ht_kyd DELETE SPACE  &kp LEFT_SHIFT
             >;
         };
 
         layer_1 {
             bindings = <
-&kp F1          &kp F2     &kp F3        &kp F4    &kp F5     &kp F6     &kp F7            &kp F8         &kp F9     &kp F10
-&kp N1          &kp N2     &kp N3        &kp N4    &kp N5     &kp N6     &kp N7            &kp N8         &kp N9     &kp N0
-&kp LEFT_SHIFT  &kp LCTRL  &kp LEFT_ALT  &kp CAPS  &kp TAB    &kp MINUS  &kp LEFT_BRACKET  &kp SEMICOLON  &kp COMMA  &kp BACKSLASH
-                           &none         &none     &none      &kp F11    &kp F12   &none
+&kp F1   &kp F2   &kp F3      &kp F4     &kp F5            &kp F6     &kp F7     &kp F8            &kp F9             &kp F10
+&kp N1   &kp N2   &kp N3      &kp N4     &kp N5            &kp N6     &kp N7     &kp N8            &kp N9             &kp N0
+&kp F11  &kp F12  &none       &kp GRAVE  &none             &kp EQUAL  &kp MINUS  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
+                  &kp ESCAPE  &none      &kp LEFT_SHIFT    &none      &none      &none
             >;
         };
 
         layer_2 {
             bindings = <
-&none  &none           &none           &none            &none            &none      &none     &none    &none       &none
-&none  &none           &kp UP_ARROW    &none            &kp PAGE_UP      &none      &none     &none    &none       &none
-&none  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp EQUAL  &kp RBKT  &kp SQT  &kp PERIOD  &kp SLASH
-                       &none           &none            &none            &none      &none    &none
+&none  &none           &none           &none            &none            &none  &none           &none           &none           &none
+&none  &none           &kp UP_ARROW    &none            &kp PAGE_UP      &none  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&none  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &none  &kp HOME        &kp END         &none           &none
+                       &none           &none            &none            &none  &none           &none
             >;
         };
 
@@ -72,7 +85,7 @@
 &none  &none  &none  &none  &none    &none       &none         &none         &none         &none
 &none  &none  &none  &none  &none    &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
 &none  &none  &none  &none  &none    &none       &none         &none         &none         &none
-              &none  &none  &none    &none       &none  &none
+              &none  &none  &none    &none       &none         &none
             >;
         };
 
